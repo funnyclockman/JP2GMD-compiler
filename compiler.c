@@ -64,8 +64,12 @@ char[] start(){
 
 }
 
-char[] stdout(){
-
+char[] stdout(char[] varible){
+ char []temp = "mov eax,4\nmov ebx,1\nmov ecx,";
+ strcat(temp,variable);
+ strcat(temp,"\nmov edx,");
+ strcat(temp,getArrayLength(variable));
+ return temp;
 }
 
 char[] end(){
