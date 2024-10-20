@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 int main(){
  //storage
@@ -6,72 +7,38 @@ int main(){
  char codeBuffer[1000];
  char fileBuffer[1000];
  FILE *f;
+ printf("memory set\n");
 
- //source file reader
+ //source file reader  DZIALA
  printf("Specify file\n");
  scanf("%s",filePath); 
  f = fopen(filePath,"r");
  fgets(fileBuffer,1000,f);
+ printf("file readed\n");
 
- //debug
- printf("%s",fileBuffer);
-
- return 0;
-}
-
-//ma podzielic kod wedlug ";"
-char[][] getLine(char buffer[]){
- char temp[100][100]; 
- for(int i = 0;i<100;i++){
-  char tempIn[100];
-  int e = 0; 
-  while(buffer[e]!=';'){
+ //splits source code by semicolon CHUJ WIE CZY DZIALA
+ const char *lines[128];
+ int i = 0;
+ int e = 0;
+ while(e > (sizeof(fileBuffer)/sizeof(fileBuffer[0]))){
+  const char *line[128];
+  if(fileBuffer[e]!=';'){
+   char* p = fileBuffer[e];
+   strcat(line,p);
    e++;
-   tempIn[e];
+  }else{
+   lines[i] = line;
+   i++;
+   e++;
   }
  }
-}
+ printf("%i",sizeof(lines)/sizeof(lines[0]));
+ printf("file segmented\n");
 
-//sprawdza wartosc przypisana do procedury
-char[] getStringValue(){
-
-}
-
-//tez ale int
-int getIntValue(){
- return 0;
-}
-
-//ma skompilowac do hex a potem wykonac
-int execute(){
- return 0;
-} 
-
-int getArrayLength(char[] input){
- return sizeof(input)/sizeof(input[0]);
-}
-
-//TUTAJ KONKRETNE PROCEDURY
-char[] mem(char[][] variables){
- char[1000] temp = "section .data"
- for(int i = 0;getArrayLength(variables);i++){
-  strcat(temp,"\n gmd");
-  strcat(temp,i);
-  strcat(temp," db")
+ //DEBUGER
+ for(int i = 0;i < 4;i++){
+  printf("%s",lines[i]); //Segmentation fault (core dumped)
+  printf("\n");
  }
-}
-char[] start(){
-
-}
-
-char[] stdout(char[] varible){
- char []temp = "mov eax,4\nmov ebx,1\nmov ecx,";
- strcat(temp,variable);
- strcat(temp,"\nmov edx,");
- strcat(temp,getArrayLength(variable));
- return temp;
-}
-
-char[] end(){
-
+ return 0;
 }
